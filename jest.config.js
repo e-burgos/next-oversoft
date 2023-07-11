@@ -1,0 +1,40 @@
+module.exports = {
+  collectCoverage: true,
+  collectCoverageFrom: [
+    '<rootDir>/src/components/**/*.{js,jsx,ts,tsx}',
+    '<rootDir>/src/utils/**/*.{js,jsx,ts,tsx}',
+    '<rootDir>/src/store/**/*.{js,jsx,ts,tsx}',
+    '<rootDir>/src/hooks/**/*.{js,jsx,ts,tsx}',
+    '!<rootDir>/src/app/**/*.{js,jsx,ts,tsx}',
+    '!<rootDir>/src/utils/consts.ts',
+    '!<rootDir>/node_modules/',
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+  },
+  coverageReporters: ['json', 'lcov', 'text', 'clover'],
+  moduleNameMapper: {
+    '\\.(css|less|scss|sss|styl)$': '<rootDir>/node_modules/jest-css-modules',
+    '^app/(.*)$': '<rootDir>/src/app/$1',
+    '^components/(.*)$': '<rootDir>/components/$1',
+    '^hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^store/(.*)$': '<rootDir>/src/store/$1',
+    '^utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^__mocks__/(.*)$': '<rootDir>/__mocks__/$1',
+    '^queries/(.*)$': '<rootDir>/src/queries/$1',
+    '^services/(.*)$': '<rootDir>/src/services/$1',
+    '^config/(.*)$': '<rootDir>/config/$1',
+    '^config': '<rootDir>/config/index.js',
+  },
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['./jest.setup.ts'],
+  coveragePathIgnorePatterns: ['/node_modules/', '.+\\.(css|styl|less|sass|scss)$'],
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', { tsconfig: './tsconfig.test.json' }],
+  },
+};

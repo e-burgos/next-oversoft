@@ -6,7 +6,7 @@ import Users from 'oversoft-ui/dist/Assets/Users/Users';
 const Header = () => {
   return (
     <>
-      <div className={styles.headerContainer}>
+      <div className={styles.container}>
         <div className={styles.leftContainer}>
           <Link id="logo" href="/">
             <Users />

@@ -7,9 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="es">
-      <Wrapper>{children}</Wrapper>
-    </html>
-  );
+  return <Wrapper>{children}</Wrapper>;
 }

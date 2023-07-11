@@ -1,11 +1,15 @@
 'use client';
+import React, { FunctionComponent } from 'react';
 import styles from './styles/home.module.css';
-import Header from '../common/header';
+import MenuWrapper from '../common/menu-wrapper';
 
-export default function Home() {
+const Home: FunctionComponent = () => {
   return (
-    <main className={styles.main}>
-      <Header />
-    </main>
+    <MenuWrapper>
+      <div className={styles.container}>
+        <h1>Welcome Master, Master</h1>
+      </div>
+    </MenuWrapper>
   );
-}
+};
+export default Home;

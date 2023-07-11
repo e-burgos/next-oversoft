@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: calc(100vh - 40px);
+  height: 100%;
+  width: 260px;
+  padding-right: 20px;
+  background: transparent;
+}
+
+.menuContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  border-radius: 32px 0px 0px 32px;
+  background: var(--neutrals-black);
+}
