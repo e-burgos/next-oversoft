@@ -11,7 +11,8 @@ import {
 } from 'react-query';
 import { _storage } from './localStorage';
 import apiResponses, { apiErrorResponses } from './apiTypes';
-import { PUBLIC_API_TOKEN, PUBLIC_API_URL } from '@/utils/consts';
+import { PUBLIC_API_URL } from '@/utils/consts';
+import useCookies from '@/hooks/useCookies';
 
 export const minValidityRetry = 1;
 
@@ -33,6 +34,7 @@ export { apiRequest };
 
 function useApi<Type extends keyof apiResponses & keyof apiErrorResponses>(
   id: Type,
+  authorization?: 'jwt-auth' | 'no-auth',
   axiosOptions?: AxiosRequestConfig,
   keys?: QueryKey,
   cacheTime?: number,
@@ -50,6 +52,8 @@ function useApi<Type extends keyof apiResponses & keyof apiErrorResponses>(
   const dependencies = keys ? [id, keys] : id;
   const configCache = cacheTime ? cacheTime : 0;
   const configStale = staleTime ? staleTime : 0;
+  const { get } = useCookies();
+  const token = get('token');
   return useQuery(
     dependencies,
     ({ signal }) => {
@@ -57,7 +61,7 @@ function useApi<Type extends keyof apiResponses & keyof apiErrorResponses>(
         url: apiUrls[id],
         ...axiosOptions,
         headers: {
-          Authorization: `Bearer ${PUBLIC_API_TOKEN}`,
+          Authorization: token && authorization === 'jwt-auth' ? `Bearer ${token}` : 'No Auth',
           ...axiosOptions?.headers,
         },
         signal,
@@ -94,19 +98,22 @@ export default useApi;
 
 function useApiMutation<Type extends keyof apiResponses>(
   id: Type,
+  authorization?: 'jwt-auth' | 'no-auth',
   axiosOptions?: AxiosRequestConfig,
   mutationOptions?: Omit<
     UseMutationOptions<AxiosResponse<apiResponses[Type], any>, AxiosError<apiErrorResponses[Type]>, unknown, unknown>,
     'mutationFn'
   >
 ): UseMutationResult<AxiosResponse<apiResponses[Type], any>, AxiosError<apiErrorResponses[Type]>> {
+  const { get } = useCookies();
+  const token = get('token');
   return useMutation((mutationAxiosOptions) => {
     return axiosClient.request({
       url: apiUrls[id],
       ...axiosOptions,
       ...(mutationAxiosOptions as AxiosRequestConfig),
       headers: {
-        Authorization: `Bearer ${PUBLIC_API_TOKEN}`,
+        Authorization: token && authorization === 'jwt-auth' ? `Bearer ${token}` : 'No Auth',
         ...axiosOptions?.headers,
         ...(mutationAxiosOptions as AxiosRequestConfig)?.headers,
       },
@@ -122,4 +129,5 @@ export const apiUrls: { [api in keyof apiResponses]: string } = {
 
   // User Api
   'get-valid-users': '/api/Usuario/UsuariosValidos',
+  'get-users-list-items-by-ids': '/api/Usuario/ListItemsByIds',
 };

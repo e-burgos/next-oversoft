@@ -18,64 +18,19 @@
   flex-direction: row;
   align-items: center;
 }
-.linksContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 32px;
-}
-
-.linksContainer > a {
-  text-decoration: none;
-  margin: 13px 32px 13px 13px;
-}
 
 .rightContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 20px;
 }
 
-.profileBubbleButton {
-  border: none;
-  padding: 0;
-  background-color: transparent;
-}
-
-.profileBubbleButton * {
-  cursor: pointer !important;
-}
-
-.logoutContainer {
-  position: absolute;
-  right: 78px;
-  top: 0px;
-  transition: transform 0.1s ease-in-out;
-  transform: scale(1);
-  transform-origin: center right;
-  height: 56px;
-  background-color: #fff;
+.logout {
   display: flex;
-  align-items: center;
-}
-
-.hideLogoutContainer {
-  transform: scale(0);
-}
-
-.logoutContainer button {
   border: none;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 0;
-}
-.logoutContainer button:hover {
-  background-color: #fafafa;
-}
-.logoutContainer p {
-  padding: 8px 16px;
-}
-
-.notificationButton {
-  margin-right: 15px;
+  background: none;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
 }
